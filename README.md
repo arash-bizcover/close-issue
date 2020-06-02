@@ -43,6 +43,7 @@ jobs:
 | `repository` | The GitHub repository containing the issue. | Current repository |
 | `issue-number` | The number of the issue to close. | `github.event.issue.number` |
 | `comment` | A comment to make on the issue before closing. | |
+| `labels` | An array of labels to put on the issue, like '["a","b"]' | |
 
 ### Accessing issues in other repositories
 

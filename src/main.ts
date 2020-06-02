@@ -8,7 +8,8 @@ async function run(): Promise<void> {
       token: core.getInput('token'),
       repository: core.getInput('repository'),
       issueNumber: Number(core.getInput('issue-number')),
-      comment: core.getInput('comment')
+      comment: core.getInput('comment'),
+      labelsInput: core.getInput('labels')
     }
     core.debug(`Inputs: ${inspect(inputs)}`)
 
@@ -34,6 +35,22 @@ async function run(): Promise<void> {
       issue_number: inputs.issueNumber,
       state: 'closed'
     })
+
+    if (inputs.labelsInput){
+      try{
+        const labels: string[] = JSON.parse(inputs.labelsInput);
+        core.info('Adding labels  ' + labels)
+        await octokit.issues.addLabels({
+          owner: repo[0],
+          repo: repo[1],
+          issue_number: inputs.issueNumber,
+          labels: labels
+        });
+      }catch(e){
+        throw ("🏷 error on labeling" + e)
+      }
+    }
+
   } catch (error) {
     core.debug(inspect(error))
     core.setFailed(error.message)
