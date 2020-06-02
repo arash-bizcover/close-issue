@@ -12,6 +12,8 @@ inputs:
     default: ${{ github.event.issue.number }}
   comment:
     description: 'A comment to make on the issue before closing'
+  labels:
+    description: "An array of labels to put on the issue, like '[\"a\",\"b\"]'"
 runs:
   using: 'node12'
   main: 'dist/index.js'
